@@ -11,11 +11,6 @@ function logar(){
 function deslogar(){
 }
 
-
-function cadastrarUsuario(){
-
-}
-
 function cadastrarVenda(){
 
 }
@@ -39,12 +34,67 @@ usuário: admin e senha:123123
 
 $usuario [0] = 123123;
 $usuario [1] = "Administrador";
+$usuarioAtivo = null;
 
 $usuarios["admin"] = $usuario;
 
 function cadastrarUsuario($nome, $senha, $cargo){
+    global $usuarios;
     $usuario [0] = $senha;
     $usuario [1] = $cargo;
     $usuarios[$nome] = $usuario;
 }
+
+function logar($usuario, $senha){
+    global $usuarios;
+    if($usuarios [$usuario [0]] == $senha ){
+        return $usuario;
+    }
+    else{
+        echo "Usuário ou senha incorretos";
+    }
+
+}
+
+/*  Teste de cadastro de usuário 
+cadastrarUsuario("Tiago", 121212, "Teste");
+print_r($usuarios); */
+
+
+while(true){
+
+    echo "1 - Logar\n";
+    echo "0 - Sair \n";
+    $num = readline();
+    
+    switch($num){
+        case 0:
+            die();
+        case 1:
+            echo "Digite usuário e senha \n";
+            $usuarioAtivo = logar($usuario, $senha);
+        default:
+            break;
+    }
+    while($usuarioAtivo != null){
+        echo "1 - Vender \n";
+        echo "2 - Cadastrar novo usuário \n";
+        echo "3 - Verificar Log \n";
+        echo "4 - Deslogar \n";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
