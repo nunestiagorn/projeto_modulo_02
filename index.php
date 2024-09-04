@@ -2,12 +2,7 @@
 
 /* Projeto Módulo 2
 */
-
-
-/* cadastrar um usuário padrão
-function logar(){
-}
-
+/*
 function deslogar(){
 }
 
@@ -71,7 +66,10 @@ while(true){
         case 0:
             die();
         case 1:
-            echo "Digite usuário e senha \n";
+            echo "Digite o usuário: ";
+            $usuario = readline();
+            echo "Digite a senha: ";
+            $senha = readline();
             $usuarioAtivo = logar($usuario, $senha);
         default:
             break;
@@ -79,11 +77,11 @@ while(true){
     while($usuarioAtivo != null){
         echo "1 - Vender \n";
         echo "2 - Cadastrar novo usuário \n";
-        echo "3 - Verificar Log \n";
-        echo "4 - Deslogar \n";
+        echo "3 - Cadastrar novo produto \n"; 
+        echo "4 - Verificar Log \n";
+        echo "5 - Deslogar \n";
     }
 }
-
 
 
 
