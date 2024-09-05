@@ -3,9 +3,6 @@
 /* Projeto Módulo 2
 */
 /*
-function deslogar(){
-}
-
 function cadastrarVenda(){
 
 }
@@ -61,9 +58,9 @@ while(true){
 
     echo "1 - Logar\n";
     echo "0 - Sair \n";
-    $num = readline();
+    $escolha1 = readline();
     
-    switch($num){
+    switch($escolha1){
         case 0:
             die();
         case 1:
@@ -72,17 +69,54 @@ while(true){
             echo "Digite a senha: ";
             $senha = readline();
             $usuarioAtivo = logar($usuario, $senha);
-            system('clear');
+            echo"\n \n \n \n \n \n \n \n \n \n \n \n";                             
+            break;
         default:
             break;
     }
     while($usuarioAtivo != null){
+        
         echo "1 - Vender \n";
         echo "2 - Cadastrar novo usuário \n";
         echo "3 - Cadastrar novo produto \n"; 
         echo "4 - Verificar Log \n";
         echo "5 - Deslogar \n";
-        die();
+
+        $escolha2 = readline();
+
+        echo"\n \n \n \n \n \n \n \n \n \n \n \n";     
+        
+        
+        switch($escolha2){
+            case 1:
+                //chamar função venda e registrar no log
+                break;
+            case 2:
+                //cadastrar novo usuário e registrar log
+                break;
+            case 3:
+                //Cadastrar novo produto e registrar log
+                break;
+            case 4:
+                //verificar log
+                break;
+            case 5:
+                // deslogar, colocar usuarioAtivo como igual a null
+                echo "Tem certeza que deseja deslogar? \n";
+                echo "1 - Sim \n";
+                echo "2 - Não \n";
+                $escolha3 = readline();
+
+                if($escolha3 == 1){
+                    $usuarioAtivo = null;
+                }
+                
+                echo"\n \n \n \n \n \n \n \n \n \n \n \n"; 
+                break;
+            default:
+                echo "Operação inválida";
+                break;
+        }
     }
 }
 
