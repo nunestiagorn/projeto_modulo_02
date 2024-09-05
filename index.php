@@ -1,7 +1,4 @@
 <?php
-
-/* Projeto Módulo 2
-*/
 /*
 function cadastrarVenda(){
 
@@ -15,14 +12,14 @@ function verificarLog(){
 
 }
 
-*/
-
-
-/* Uma array associativo para armazenar o nome como 
-chave para outro array que armazena as informações senha e cargo
-usuário: admin e senha:123123
+editar quantidade do produto dentro da funcao cadastrar produto
 
 */
+
+                                                     /*  Cadastro de Usuário e produtos pré-definidos no sistema */
+
+/* Usuários é um Array associativo que usa como chave o nome/login, dentro desse array temos outro array que na 
+posição [0] leva a senha e na [1] leva o cargo do usuário no sistema. */
 
 $usuario [0] = 123123;
 $usuario [1] = "Administrador";
@@ -30,7 +27,23 @@ $usuarioAtivo = null;
 
 $usuarios["admin"] = $usuario;
 
+/*
+    Produtos é um array assossiativo onde a chave é o nome do produto e o item é um array que leva as informações do produto
+     quantidade [0], valor em float [1], peso por unidade [2] e marca [3].
+*/
 
+
+$produto [0] = 10;
+$produto [1] = 7.99;
+$produto [2] = "KG";
+$produto [3] = "Tio João";
+$produtos = null;
+
+$produtos["Arroz"] = $produto;
+
+
+
+/* Funções do sistema */
 
 function cadastrarUsuario($nome, $senha, $cargo){
     
@@ -43,7 +56,6 @@ function cadastrarUsuario($nome, $senha, $cargo){
     $usuario [1] = $cargo;
     $usuarios[$nome] = $usuario;
 
-    print_r($usuarios);
     }
 }
 
@@ -57,12 +69,23 @@ function logar($usuario, $senha){
         echo "Usuário ou senha incorretos \n";
     }
 }
+function cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto){
+    global $produtos;
+    if(array_key_exists($nomeProduto, $produtos)){
+        echo "Esse produto já foi cadastrado! \n";
+    }
+    else{
+        $produto [0] = $quantProduto;
+        $produto [1] = $precoProduto;
+        $produto [2] = $tamProduto;
+        $produto [3] = $marcaProduto;
+        $produtos[$nomeProduto] = $produto;
 
-/*  Teste de cadastro de usuário 
-cadastrarUsuario("Tiago", 121212, "Teste");
-print_r($usuarios); */
+    }
+}
 
 
+/* Menu do sistema */
 while(true){
 
     echo "1 - Logar\n";
@@ -93,9 +116,7 @@ while(true){
 
         $escolha2 = readline();
 
-        echo"\n \n \n \n \n \n \n \n \n \n \n \n";     
-        
-        
+       
         switch($escolha2){
             case 1:
                 //chamar função venda e registrar no log
@@ -122,11 +143,28 @@ while(true){
                     echo"Senhas diferentes! Tente novamente. \n";
                     break;
                 }
-                
-                
-                
+
+
             case 3:
-                //Cadastrar novo produto e registrar log
+                echo"Registrando ou alterando produto! \n";
+                echo"Digite o nome do produto: \n";
+                
+                $nomeProduto = readline();
+
+                echo"Digite a quantidade do produto: \n";
+                $quantProduto = readline();
+
+                echo"Digite o preço do produto usando . para dividir centavos: \n";
+                $precoProduto = readline();
+
+                echo"Digite o tamanho do produto na unidade adequada KG/G/MG/UN e etc: \n";
+                $tamProduto = readline();
+
+                echo"Digite a marca do produto: \n";
+                $marcaProduto = readline();
+
+                cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto);
+  
                 break;
             case 4:
                 //verificar log
@@ -142,7 +180,6 @@ while(true){
                     $usuarioAtivo = null;
                 }
 
-                echo"\n \n \n \n \n \n \n \n \n \n \n \n"; 
                 break;
             default:
                 echo "Operação inválida";
