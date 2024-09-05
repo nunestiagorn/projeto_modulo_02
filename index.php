@@ -1,16 +1,9 @@
 <?php
+
+$arquivoLog = 'arquivo_log.txt';
+
 /*
 function cadastrarVenda(){
-
-}
-
-function registrarLog(){
-
-}
-
-function verificarLog(){
-
-}
 
 editar quantidade do produto dentro da funcao cadastrar produto
 
@@ -41,7 +34,7 @@ $produtos = null;
 
 $produtos["Arroz"] = $produto;
 
-
+$vendasTotais = 0;
 
 /* Funções do sistema */
 
@@ -50,12 +43,15 @@ function cadastrarUsuario($nome, $senha, $cargo){
     global $usuarios;
     if(array_key_exists($nome, $usuarios)){
         echo "O usuário já existe, tente novamente! \n";
+        $msg = "Tentou registrar um usuário que já existe";
+        registrarLog($msg);
     }
     else{
-    $usuario [0] = $senha;
-    $usuario [1] = $cargo;
-    $usuarios[$nome] = $usuario;
-
+        $usuario [0] = $senha;
+        $usuario [1] = $cargo;
+        $usuarios[$nome] = $usuario;
+        $msg = "Usuário $nome cadastrado";
+        registrarLog($msg);
     }
 }
 
@@ -67,12 +63,17 @@ function logar($usuario, $senha){
     }
     else{
         echo "Usuário ou senha incorretos \n";
+        $msg = "Tentativa de login falhou!";
     }
 }
+
 function cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto){
     global $produtos;
+    global $usuarioAtivo;
     if(array_key_exists($nomeProduto, $produtos)){
         echo "Esse produto já foi cadastrado! \n";
+        $msg = "Erro ao cadastrar, produto já cadastrado pelo usuário!";
+        registrarLog($msg);
     }
     else{
         $produto [0] = $quantProduto;
@@ -81,9 +82,34 @@ function cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProdut
         $produto [3] = $marcaProduto;
         $produtos[$nomeProduto] = $produto;
 
+        $msg = "Produto cadastrado pelo usuário!";
+        registrarLog($msg);
     }
 }
 
+function registrarLog($mensagem){
+    global $arquivoLog;
+    global $usuarioAtivo;
+
+    $dataHora = date('d/m/Y H:i:s');
+    $mensagemFormatada = "[$dataHora] $mensagem, usuário: $usuarioAtivo \n";
+
+    file_put_contents($arquivoLog, $mensagemFormatada, FILE_APPEND);
+}
+
+function verificarLog(){
+    global $arquivoLog;
+    global $usuarioAtivo;
+    if(file_exists($arquivoLog)){
+        $arquivo = file_get_contents($arquivoLog);
+        echo "Log do sistema:\n";
+        echo "$arquivo";
+        $msg = "Verificação de log pelo usuário: $usuarioAtivo";
+        registrarLog($msg);
+    }else{
+        echo "Ainda não existe arquivo de log! \n";
+    }
+}
 
 /* Menu do sistema */
 while(true){
@@ -101,19 +127,25 @@ while(true){
             echo "Digite a senha: ";
             $senha = readline();
             $usuarioAtivo = logar($usuario, $senha);
-            echo"\n \n \n \n \n \n \n \n \n \n \n \n";                             
+            $msg = "Usuário logado com sucesso!";
+            registrarLog($msg);
+
+                                    
             break;
         default:
             break;
     }
     while($usuarioAtivo != null){
-        
+        echo "Usuário logado: $usuarioAtivo \n";
+        echo "Quantidade de Vendasvendas: R$ $vendasTotais \n";
+
+        echo "---------------------Menu---------------------- \n";
         echo "1 - Vender \n";
         echo "2 - Cadastrar novo usuário \n";
         echo "3 - Cadastrar novo produto \n"; 
         echo "4 - Verificar Log \n";
         echo "5 - Deslogar \n";
-
+        echo "---------------------------------------------- \n";
         $escolha2 = readline();
 
        
@@ -141,6 +173,8 @@ while(true){
                 }
                 else{
                     echo"Senhas diferentes! Tente novamente. \n";
+                    $msg = "Erro ao registrar senha!";
+                    registrarLog($msg);
                     break;
                 }
 
@@ -167,7 +201,8 @@ while(true){
   
                 break;
             case 4:
-                //verificar log
+                verificarLog();
+                echo "\n";
                 break;
             case 5:
                 // registrar log
