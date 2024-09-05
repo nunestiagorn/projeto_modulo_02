@@ -31,11 +31,20 @@ $usuarioAtivo = null;
 $usuarios["admin"] = $usuario;
 
 
+
 function cadastrarUsuario($nome, $senha, $cargo){
+    
     global $usuarios;
+    if(array_key_exists($nome, $usuarios)){
+        echo "O usuário já existe, tente novamente! \n";
+    }
+    else{
     $usuario [0] = $senha;
     $usuario [1] = $cargo;
     $usuarios[$nome] = $usuario;
+
+    print_r($usuarios);
+    }
 }
 
 function logar($usuario, $senha){
@@ -93,7 +102,29 @@ while(true){
                 break;
             case 2:
                 //cadastrar novo usuário e registrar log
-                break;
+                echo"Registrando novo usuário! \n";
+                echo"Digite o login do usuário: \n";
+                $loginCadastro = readline();
+
+                echo"Digite a senha do usuário: \n";
+                $senhaCadastro = readline();
+
+                echo"Confirme a senha: \n";
+                $senhaCadastro2 = readline();
+
+                if($senhaCadastro == $senhaCadastro2){
+                    echo"Digite o cargo do usuário: \n";
+                    $cargoCadastro = readline();
+                    cadastrarUsuario($loginCadastro, $senhaCadastro, $cargoCadastro);
+                    break;
+                }
+                else{
+                    echo"Senhas diferentes! Tente novamente. \n";
+                    break;
+                }
+                
+                
+                
             case 3:
                 //Cadastrar novo produto e registrar log
                 break;
@@ -101,7 +132,7 @@ while(true){
                 //verificar log
                 break;
             case 5:
-                // deslogar, colocar usuarioAtivo como igual a null
+                // registrar log
                 echo "Tem certeza que deseja deslogar? \n";
                 echo "1 - Sim \n";
                 echo "2 - Não \n";
@@ -110,7 +141,7 @@ while(true){
                 if($escolha3 == 1){
                     $usuarioAtivo = null;
                 }
-                
+
                 echo"\n \n \n \n \n \n \n \n \n \n \n \n"; 
                 break;
             default:
