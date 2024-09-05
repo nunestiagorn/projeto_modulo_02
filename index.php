@@ -33,6 +33,7 @@ $usuarioAtivo = null;
 
 $usuarios["admin"] = $usuario;
 
+
 function cadastrarUsuario($nome, $senha, $cargo){
     global $usuarios;
     $usuario [0] = $senha;
@@ -42,13 +43,13 @@ function cadastrarUsuario($nome, $senha, $cargo){
 
 function logar($usuario, $senha){
     global $usuarios;
-    if($usuarios [$usuario [0]] == $senha ){
+    if($usuarios[$usuario][0] == $senha ){
+        echo "O usuário $usuario foi logado com sucesso! \n";
         return $usuario;
     }
     else{
-        echo "Usuário ou senha incorretos";
+        echo "Usuário ou senha incorretos \n";
     }
-
 }
 
 /*  Teste de cadastro de usuário 
@@ -71,6 +72,7 @@ while(true){
             echo "Digite a senha: ";
             $senha = readline();
             $usuarioAtivo = logar($usuario, $senha);
+            system('clear');
         default:
             break;
     }
@@ -80,6 +82,7 @@ while(true){
         echo "3 - Cadastrar novo produto \n"; 
         echo "4 - Verificar Log \n";
         echo "5 - Deslogar \n";
+        die();
     }
 }
 
