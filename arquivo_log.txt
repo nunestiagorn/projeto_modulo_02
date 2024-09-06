@@ -1,0 +1,35 @@
+[06/09/2024 02:16:12] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:16:17] Produto vendido 1, usuário: admin 
+[06/09/2024 02:24:21] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:24:28] Produto vendido 1, usuário: admin 
+[06/09/2024 02:25:02] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:25:05] Produto vendido 1, usuário: admin 
+[06/09/2024 02:27:08] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:28:28] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:28:49] Produto vendido 1, usuário: admin 
+[06/09/2024 02:30:39] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:30:45] Produto vendido 1, usuário: admin 
+[06/09/2024 02:31:39] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:31:43] Produto vendido 1, usuário: admin 
+[06/09/2024 02:32:14] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:32:38] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:32:46] Produto vendido 1, usuário: admin 
+[06/09/2024 02:34:18] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:34:22] Produto vendido 1, usuário: admin 
+[06/09/2024 02:34:54] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:34:58] Produto vendido 1, usuário: admin 
+[06/09/2024 02:35:17] Produto vendido 1, usuário: admin 
+[06/09/2024 02:38:26] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:38:37] Produto vendido 1, usuário: admin 
+[06/09/2024 02:38:50] Produto vendido 1, usuário: admin 
+[06/09/2024 02:39:05] Usuário tiago cadastrado, usuário: admin 
+[06/09/2024 02:39:50] Produto cadastrado pelo usuário!, usuário: admin 
+[06/09/2024 02:40:08] Produto vendido 2, usuário: admin 
+[06/09/2024 02:41:36] Usuário logado com sucesso!, usuário: admin 
+[06/09/2024 02:41:52] Usuário tiago cadastrado, usuário: admin 
+[06/09/2024 02:42:01] Usuário logado com sucesso!, usuário: tiago 
+[06/09/2024 02:42:08] Verificação de log pelo usuário: tiago, usuário: tiago 
+[06/09/2024 02:42:44] O valor do produto foi alterado!, usuário: tiago 
+[06/09/2024 02:42:55] Produto vendido 1, usuário: tiago 
+[06/09/2024 02:43:07] Produto deletado do sistema!, usuário: tiago 
+[06/09/2024 02:43:29] Tentou comprar item que não foi cadastrado, usuário: tiago 
