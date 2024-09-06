@@ -55,10 +55,12 @@ function logar($usuario, $senha){
     if($usuarios[$usuario][0] == $senha ){
         echo "O usuário $usuario foi logado com sucesso! \n";
         return $usuario;
+        echo "----------------------------------------";
     }
     else{
         echo "Usuário ou senha incorretos \n";
         $msg = "Tentativa de login falhou!";
+        echo "----------------------------------------";
     }
 }
 
@@ -69,6 +71,7 @@ function cadastrarProduto($idProduto, $quantProduto, $precoProduto, $tamProduto,
         echo "Esse produto já foi cadastrado! \n";
         $msg = "Erro ao cadastrar, produto já cadastrado pelo usuário!";
         registrarLog($msg);
+        echo "----------------------------------------";
     }
     else{
         $produto [0] = $quantProduto;
@@ -80,6 +83,86 @@ function cadastrarProduto($idProduto, $quantProduto, $precoProduto, $tamProduto,
 
         $msg = "Produto cadastrado pelo usuário!";
         registrarLog($msg);
+        echo "----------------------------------------";
+    }
+}
+function editarValor($id){
+    global $produtos;
+    global $usuarioAtivo;
+
+    if(array_key_exists($id, $produtos)){
+        echo "Digite o novo valor para o produto: \n";
+        $novoValor = readline();
+
+        if($novoValor > 0){
+            $produtos[$id][1] = $novoValor;
+            echo "Valor do produto alterado! \n";
+            $msg = "O valor do produto foi alterado!";
+            registrarLog($msg);
+            echo "----------------------------------------";
+        }
+        else{
+            echo "Não pode ser um valor negativo! \n";
+            $msg = "Tentou cadastrar um valor negativo!";
+            registrarLog($msg);
+            echo "----------------------------------------";
+        }
+    }
+    else{
+        echo "Esse produto não esta cadastrado!\n";
+        $msg = "Tentou editar item não cadastrado!";
+        registrarLog($msg);
+        echo "----------------------------------------";
+    }
+}
+
+function editarQuant($id){
+    global $produtos;
+    global $usuarioAtivo;
+
+    if(array_key_exists($id, $produtos)){
+        echo "Digite a nova quantidade do produto em estoque: \n";
+        $novoValor = readline();
+
+        if($novoValor >= 0){
+            $produtos[$id][0] = $novoValor;
+
+            echo "Quantidade do produto alterada! \n";
+            $msg = "A quantidade de produto em estoque foi atualizada!";
+            registrarLog($msg);
+            echo "----------------------------------------";
+        }
+        else{
+            echo "Não pode ser quantidade negativa! \n";
+            $msg = "Tentou cadastrar quantidade negativa!";
+            registrarLog($msg);
+            echo "----------------------------------------";
+        }
+    }
+    else{
+        echo "Esse produto não esta cadastrado!\n";
+        $msg = "Tentou editar item não cadastrado!";
+        registrarLog($msg);
+        echo "----------------------------------------";
+    }
+}
+
+function deletarProduto($id){
+    global $produtos;
+    global $usuarioAtivo;
+
+    if(array_key_exists($id, $produtos)){
+        unset($produtos[$id]);
+        echo "Produto deletado com sucesso! \n";
+        $msg = "Produto deletado do sistema!";
+        registrarLog($msg);
+        echo "----------------------------------------";
+    }
+    else{
+        echo "Esse produto não esta cadastrado! \n";
+        $msg = "Tentou deletar um item que não esta cadastrado!";
+        registrarLog($msg);
+        echo "----------------------------------------";
     }
 }
 
@@ -100,16 +183,19 @@ function verificarLog(){
         $arquivo = file_get_contents($arquivoLog);
         echo "Log do sistema:\n";
         echo "$arquivo";
-        $msg = "Verificação de log pelo usuário: $usuarioAtivo";
+        $msg = "Verificação de log pelo usuário";
         registrarLog($msg);
+        echo "----------------------------------------";
     }else{
         echo "Ainda não existe arquivo de log! \n";
+        echo "----------------------------------------";
     }
 }
 
 function cadastrarVenda($idProduto, $quant){
     global $arquivoLog;
     global $produtos;
+    global $usuarioAtivo;
 
     if(array_key_exists($idProduto, $produtos)){
         $produtos[$idProduto][0];
@@ -117,18 +203,27 @@ function cadastrarVenda($idProduto, $quant){
         $quantProduto = $produtos[$idProduto][0] - $quant;
         
         if($quantProduto >= 0){
-            $msg = "Produto vendido $idProduto, usuário: $usuarioAtivo";
+
+            $msg = "Produto vendido $idProduto";
             registrarLog($msg);
-            return $quantProduto *  $produtos[$nomeProduto][1];
+            $valorVenda = $quant *  $produtos[$idProduto][1];
+            echo "----------------------------------------\n";
+            echo "Valor da venda: $valorVenda\n";
+            $nomeProd = $produtos[$idProduto][4];
+            echo "Nome do produto vendido: $nomeProd \n";
+            echo "----------------------------------------\n";
+            return $valorVenda;
         }
         else{
             echo "Não pode realizar a venda, não tem estoque \n";
             $msg = "Produto não foi vendido por falta de estoque";
             registrarLog($msg);
+            echo "----------------------------------------";
         }
     }
     else{
         echo "Produto não cadastrado!\n";
+        echo "----------------------------------------";
         $msg = "Tentou comprar item que não foi cadastrado";
         registrarLog($msg);
     }
@@ -153,36 +248,41 @@ while(true){
             $usuarioAtivo = logar($usuario, $senha);
             $msg = "Usuário logado com sucesso!";
             registrarLog($msg);
-                       
+            
+            echo "----------------------------------------";
+            echo "\n \n \n \n \n \n \n \n \n \n";
             break;
         default:
             break;
     }
     while($usuarioAtivo != null){
-        echo "Usuário logado: $usuarioAtivo \n";
-        echo "Quantidade de Vendasvendas: R$ $vendasTotais \n";
+        echo "\nUsuário logado: $usuarioAtivo \n";
+        echo "Valor em vendas totais: R$ $vendasTotais \n";
 
         echo "---------------------Menu---------------------- \n";
         echo "1 - Vender \n";
         echo "2 - Cadastrar novo usuário \n";
-        echo "3 - Cadastrar novo produto \n"; 
-        echo "4 - Verificar Log \n";
-        echo "5 - Deslogar \n";
+        echo "3 - Cadastrar novo produto \n";     
+        echo "4 - Editar produto \n";
+        echo "5 - Deletar produto \n";
+        echo "6 - Verificar Log \n";
+        echo "7 - Deslogar \n";
         echo "---------------------------------------------- \n";
         $escolha2 = readline();
 
        
         switch($escolha2){
             case 1:
-                echo"Digite o nome do produto: \n";
+                echo"Digite o ID do produto: \n";
                 
-                $produtoVenda = readline();
+                $idVenda = readline();
 
                 echo"A quantidade do produto: \n";
+                
                 $quantVenda = readline();
 
-                $vendasTotais = cadastrarVenda($produtoVenda, $quantVenda);
-                 
+                $vendasTotais += cadastrarVenda($idVenda, $quantVenda);
+                echo "---------------------------------------------- \n";
                 break;
             case 2:
                 //cadastrar novo usuário e registrar log
@@ -237,10 +337,39 @@ while(true){
   
                 break;
             case 4:
+                echo "1 - Editar valor do produto: \n";
+                echo "2 - Editar quantidade do produto: \n"; 
+
+                $editarOpcao = readline();
+
+                switch($editarOpcao){
+                    case 1:
+                            echo "Digite o ID do produto que deseja alterar o valor: \n";
+                            $idAlterar = readline();
+                            editarValor($idAlterar);
+                        break;
+                    case 2:
+                             echo "Digite o ID do produto que deseja alterar a quantidade: \n";
+                            $idAlterar = readline();
+                            editarValor($idAlterar);
+                        //editarQuant();
+                        break;
+                    default:
+                        echo "Opção não exite!";
+                        break;
+                }
+
+                break;
+            case 5:
+                echo "Digite o ID do produto que deseja deletar: \n";
+                    $idAlterar = readline();
+                    deletarProduto($idAlterar);
+                break;
+            case 6:
                 verificarLog();
                 echo "\n";
                 break;
-            case 5:
+            case 7:
                 // registrar log
                 echo "Tem certeza que deseja deslogar? \n";
                 echo "1 - Sim \n";
