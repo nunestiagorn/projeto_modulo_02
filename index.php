@@ -2,13 +2,6 @@
 
 $arquivoLog = 'arquivo_log.txt';
 
-/*
-function cadastrarVenda(){
-
-editar quantidade do produto dentro da funcao cadastrar produto
-
-*/
-
                                                      /*  Cadastro de Usuário e produtos pré-definidos no sistema */
 
 /* Usuários é um Array associativo que usa como chave o nome/login, dentro desse array temos outro array que na 
@@ -111,7 +104,35 @@ function verificarLog(){
     }
 }
 
-/* Menu do sistema */
+function cadastrarVenda($nomeProduto, $quant){
+    global $arquivoLog;
+    global $produtos;
+    
+    if(array_key_exists($nomeProduto, $produtos)){
+        $produtos[$nomeProduto][0];
+
+        $quantProduto = $produtos[$nomeProduto][0] - $quant;
+        
+        if($quantProduto >= 0){
+            $msg = "Produto vendido $nomeProduto, usuário: $usuarioAtivo";
+            registrarLog($msg);
+            return $quantProduto *  $produtos[$nomeProduto][1];
+        }
+        else{
+            echo "Não pode realizar a venda, não tem estoque \n";
+            $msg = "Produto não foi vendido por falta de estoque";
+            registrarLog($msg);
+        }
+    }
+    else{
+        echo "Produto não cadastrado!\n";
+        $msg = "Tentou comprar item que não foi cadastrado";
+        registrarLog($msg);
+    }
+}
+
+
+//Menus
 while(true){
 
     echo "1 - Logar\n";
@@ -151,7 +172,15 @@ while(true){
        
         switch($escolha2){
             case 1:
-                //chamar função venda e registrar no log
+                echo"Digite o nome do produto: \n";
+                
+                $produtoVenda = readline();
+
+                echo"A quantidade do produto: \n";
+                $quantVenda = readline();
+
+                $vendasTotais = cadastrarVenda($produtoVenda, $quantVenda);
+                 
                 break;
             case 2:
                 //cadastrar novo usuário e registrar log
