@@ -23,9 +23,11 @@ $produto [0] = 10;
 $produto [1] = 7.99;
 $produto [2] = "KG";
 $produto [3] = "Tio João";
+$produto [4] = "Arroz";
+
 $produtos = null;
 
-$produtos["Arroz"] = $produto;
+$produtos["1"] = $produto;
 
 $vendasTotais = 0;
 
@@ -60,10 +62,10 @@ function logar($usuario, $senha){
     }
 }
 
-function cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto){
+function cadastrarProduto($idProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto, $nomeProduto){
     global $produtos;
     global $usuarioAtivo;
-    if(array_key_exists($nomeProduto, $produtos)){
+    if(array_key_exists($idProduto, $produtos)){
         echo "Esse produto já foi cadastrado! \n";
         $msg = "Erro ao cadastrar, produto já cadastrado pelo usuário!";
         registrarLog($msg);
@@ -73,7 +75,8 @@ function cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProdut
         $produto [1] = $precoProduto;
         $produto [2] = $tamProduto;
         $produto [3] = $marcaProduto;
-        $produtos[$nomeProduto] = $produto;
+        $produto [4] = $nomeProduto;
+        $produtos[$idProduto] = $produto;
 
         $msg = "Produto cadastrado pelo usuário!";
         registrarLog($msg);
@@ -104,17 +107,17 @@ function verificarLog(){
     }
 }
 
-function cadastrarVenda($nomeProduto, $quant){
+function cadastrarVenda($idProduto, $quant){
     global $arquivoLog;
     global $produtos;
-    
-    if(array_key_exists($nomeProduto, $produtos)){
-        $produtos[$nomeProduto][0];
 
-        $quantProduto = $produtos[$nomeProduto][0] - $quant;
+    if(array_key_exists($idProduto, $produtos)){
+        $produtos[$idProduto][0];
+
+        $quantProduto = $produtos[$idProduto][0] - $quant;
         
         if($quantProduto >= 0){
-            $msg = "Produto vendido $nomeProduto, usuário: $usuarioAtivo";
+            $msg = "Produto vendido $idProduto, usuário: $usuarioAtivo";
             registrarLog($msg);
             return $quantProduto *  $produtos[$nomeProduto][1];
         }
@@ -150,8 +153,7 @@ while(true){
             $usuarioAtivo = logar($usuario, $senha);
             $msg = "Usuário logado com sucesso!";
             registrarLog($msg);
-
-                                    
+                       
             break;
         default:
             break;
@@ -209,7 +211,12 @@ while(true){
 
 
             case 3:
-                echo"Registrando ou alterando produto! \n";
+                echo"Registrando! \n";
+
+                echo"Digite o ID do produto: \n";
+                
+                $idProduto = readline();
+
                 echo"Digite o nome do produto: \n";
                 
                 $nomeProduto = readline();
@@ -226,7 +233,7 @@ while(true){
                 echo"Digite a marca do produto: \n";
                 $marcaProduto = readline();
 
-                cadastrarProduto($nomeProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto);
+                cadastrarProduto($idProduto, $quantProduto, $precoProduto, $tamProduto, $marcaProduto, $nomeProduto);
   
                 break;
             case 4:
